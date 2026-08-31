@@ -10,9 +10,24 @@ class BoardSerializer(serializers.ModelSerializer):
 class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
-        fields = ["title", "board", "position"]
+        fields = ["id", "title", "position"]
+        read_only_fields = ["position"]
+
+    def create(self, validated_data):
+        # 'board' is passed via the view's context
+        board = self.context.get('board')
+        if board:
+            validated_data['position'] = board.lists.count()
+        return super().create(validated_data)
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ["title", "list", "position"]
+        fields = ["id", "title", "position"]
+        read_only_fields = ["position"]
+
+    def create(self, validated_data):
+        list_obj = self.context.get('list')
+        if list_obj:
+            validated_data['position'] = list_obj.cards.count()
+        return super().create(validated_data)
