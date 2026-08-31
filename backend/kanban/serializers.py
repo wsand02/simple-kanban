@@ -23,8 +23,8 @@ class ListSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ["id", "title", "position"]
-        read_only_fields = ["position"]
+        fields = ["id", "title", "position", "list"]
+        read_only_fields = ["position", "list"]
 
     def create(self, validated_data):
         list_obj = self.context.get('list')
