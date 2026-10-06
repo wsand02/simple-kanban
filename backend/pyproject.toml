@@ -8,6 +8,6 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
-    "django>=6.1",
+    "django>=6.1.1",
     "djangorestframework>=3.18.0",
 ]
